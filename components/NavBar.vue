@@ -1,8 +1,8 @@
 <template>
-    <nav class="flex justify-between items-center shadow-md py-3 sticky top-0 z-10 px-10" >
+    <nav class="flex justify-between items-center shadow-md py-3 sticky top-0 z-10 px-20" >
         <!-- LOGO -->
-        <div class="ml-5 md:ml-10">
-            <img src="/assets/imgs/logo.jpeg" class="w-20 rounded-xl" alt="">
+        <div >
+            <img src="/assets/imgs/logo.jpeg" class="w-12 rounded-xl" alt="">
         </div>
         <!-- LINKS IN LARGE SCREEN -->
         <div class="mr-10 hidden lg:block">
@@ -12,7 +12,7 @@
       <li><a href="#services" @click.prevent="scrollToSection('services')">الخدمات</a></li>
       <li><a href="#portfolio" @click.prevent="scrollToSectiony('portfolio')">الوظائف</a></li>
                 <li class="flex gap-2 items-center">
-                    <h1>اختر الوضع : </h1><select v-model="$colorMode.preference" class="px-2 py-1 text-center"
+                    <h1>الوضع</h1><select v-model="$colorMode.preference" class="px-2 py-1 text-center"
                         style="border: 1px solid;">
                         <option value="light">نهاري</option>
                         <option value="dark">ليلي</option>
@@ -22,15 +22,20 @@
             </ul>
         </div>
         <!-- LINKS IN SMALL SCREEN -->
-        <div class="mr-5 md:mr-10 lg:hidden flex items-center gap-2">
-            <h1>Theme Mode:</h1><select v-model="$colorMode.preference" class="px-2 py-1 rounded text-center"
-                style="border: 1px solid ;">
-                <option value="system">System</option>
-                <option value="light">Light</option>
-                <option value="dark">Dark</option>
-                <option value="sepia">Sepia</option>
+
+        <div class=" lg:hidden flex justify-center items-center gap-10">
+            <img src="/assets/imgs/logo.jpeg" class="w-12 rounded-xl" alt="">
+
+          <div class="mr-5 md:mr-10 lg:hidden flex justify-between items-center gap-2">
+            <h1>الوضع </h1><select v-model="$colorMode.preference" class="px-2 py-1 text-center"
+                        style="border: 1px solid;">
+                        <option value="light">نهاري</option>
+                        <option value="dark">ليلي</option>
+                        <option value="sepia">بيج</option>
             </select>
             <DropMenu />
+          </div>
+
 
         </div>
     </nav>
