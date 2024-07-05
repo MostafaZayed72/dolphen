@@ -11,10 +11,10 @@
 
                     <v-list>
                         <v-list-item >
-                            <v-list-item-title class="mb-3"><a href="#about" @click.prevent="scrollToSection('about')">About</a></v-list-item-title>
-                            <v-list-item-title class="mb-3"><a href="#skills" @click.prevent="scrollToSection('skills')">Skills & Experience</a></v-list-item-title>
-                            <v-list-item-title class="mb-3"><a href="#services" @click.prevent="scrollToSection('services')">My Services</a></v-list-item-title>
-                            <v-list-item-title><a href="#portfolio" @click.prevent="scrollToSectiony('portfolio')">My Portfolio</a></v-list-item-title>
+                            <v-list-item-title class="mb-3"><a href="#about" @click.prevent="scrollToSection('about')">من نحن</a></v-list-item-title>
+                            <v-list-item-title class="mb-3"><a href="#skills" @click.prevent="scrollToSection('skills')">العروض</a></v-list-item-title>
+                            <v-list-item-title class="mb-3"><a href="#services" @click.prevent="scrollToSection('services')">الخدمات</a></v-list-item-title>
+                            <v-list-item-title><a href="#portfolio" @click.prevent="scrollToSectiony('portfolio')">الوظائف</a></v-list-item-title>
                         </v-list-item>
                     </v-list>
                 </v-menu>
