@@ -9,7 +9,7 @@
             <ul class="flex gap-20 items-center font-semibold">
                 <li><a href="#about" @click.prevent="scrollToSection('about')">من نحن</a></li>
       <li><a href="#skills" @click.prevent="scrollToSection('skills')">العروض</a></li>
-      <li><a href="#services" @click.prevent="scrollToSection('services')">الخدمات</a></li>
+      <li><a href="#services" @click.prevent="scrollToSection('services')">التواصل معنا</a></li>
       <li><a href="#portfolio" @click.prevent="scrollToSectiony('portfolio')">الوظائف</a></li>
                 <li class="flex gap-2 items-center">
                     <h1>الوضع</h1><select v-model="$colorMode.preference" class="px-2 py-1 text-center"
