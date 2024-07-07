@@ -50,5 +50,12 @@
 .delayed{
   transition: 0.5s;
 }
+
+input::placeholder {
+  transition: opacity 0.5s ease;
+}
+input:focus::placeholder {
+  opacity: 0;
+}
 </style>
   
