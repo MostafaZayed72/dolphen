@@ -7,7 +7,7 @@
         </div>
         <!-- Start Cards -->
        <div class="flex flex-col   justify-center items-center gap-6">
-<img class="w-[40%] rounded-lg" src="/assets/imgs/job.jpg" alt="">
+<img class="w-[80%] md:w-[60%] lg:w-[50%]  rounded-lg" src="/assets/imgs/job.jpg" alt="">
 <NuxtLink to="/jobs" class="bg-slate-300 px-4 py-2 rounded-xl font-bold hover:bg-green-300 delayed">امتلك وظيفتك معنا</NuxtLink>
        </div>
     </div>

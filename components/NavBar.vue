@@ -2,7 +2,7 @@
     <nav class="flex justify-between items-center shadow-md py-3 sticky top-0 z-10 px-20" >
         <!-- LOGO -->
         <div >
-            <img src="/assets/imgs/logo.jpeg" class="w-12 rounded-xl" alt="">
+            <NuxtLink to="/"><img src="/assets/imgs/logo.jpeg" class="w-12 rounded-xl" alt=""></NuxtLink>
         </div>
         <!-- LINKS IN LARGE SCREEN -->
         <div class="mr-10 hidden lg:block">
