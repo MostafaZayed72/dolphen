@@ -1,12 +1,10 @@
 <template>
     <nav class="flex justify-between items-center shadow-md py-3 sticky top-0 z-10 px-20" >
         <!-- LOGO -->
-        <div >
-            <NuxtLink to="/"><img src="/assets/imgs/logo.jpeg" class="w-12 rounded-xl" alt=""></NuxtLink>
-        </div>
+       
         <!-- LINKS IN LARGE SCREEN -->
-        <div class="mr-10 hidden lg:block">
-            <ul class="flex gap-20 items-center font-semibold">
+        <div class="mr-10 hidden lg:block f">
+            <ul class="flex  gap-20 items-center font-semibold">
                 <li><a href="#about" @click.prevent="scrollToSection('about')">من نحن</a></li>
       <li><a href="#skills" @click.prevent="scrollToSection('skills')">العروض</a></li>
       <li><a href="#services" @click.prevent="scrollToSection('services')">التواصل معنا</a></li>
@@ -21,22 +19,32 @@
                 </li>
             </ul>
         </div>
+
+       
         <!-- LINKS IN SMALL SCREEN -->
 
-        <div class=" lg:hidden flex justify-center items-center gap-10">
-            <img src="/assets/imgs/logo.jpeg" class="w-12 rounded-xl" alt="">
+        <div class="w-100 lg:hidden flex justify-center items-center gap-10">
+            
+            <DropMenu />
 
-          <div class="mr-5 md:mr-10 lg:hidden flex justify-between items-center gap-2">
-            <h1>الوضع </h1><select v-model="$colorMode.preference" class="px-2 py-1 text-center"
+          <div class="w-100 lg:hidden flex justify-center  items-center gap-2">
+
+            <h1>الوضع </h1>
+            
+            <select v-model="$colorMode.preference" class="px-2 py-1 text-center"
                         style="border: 1px solid;">
                         <option value="light">نهاري</option>
                         <option value="dark">ليلي</option>
                         <option value="sepia">بيج</option>
             </select>
-            <DropMenu />
+
           </div>
+          <img src="/assets/imgs/logo.jpeg" class="w-12 rounded-xl md:hidden" alt="" @click="toHome">
 
+        </div>
 
+        <div >
+            <NuxtLink to="/"><img src="/assets/imgs/logo.jpeg" class="w-12 rounded-xl hidden md:flex" alt=""></NuxtLink>
         </div>
     </nav>
 </template>
@@ -49,6 +57,10 @@ const scrollToSectiony = (sectionId) => {
     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 };
+
+const toHome= (()=>{
+    navigateTo('/')
+})
 
 const scrollToSection = (sectionId) => {
   const section = document.getElementById(sectionId);
