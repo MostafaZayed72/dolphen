@@ -75,6 +75,9 @@ body {
 body nav {
     background-color: #dbd5d5;
 }
+body .footer {
+    background-color: #dbd5d5;
+}
 
 .dark-mode body {
     background-color: #091a28;
@@ -83,6 +86,10 @@ body nav {
 }
 
 .dark-mode nav {
+    background-color: #0e3250;
+
+}
+.dark-mode .footer {
     background-color: #0e3250;
 
 }
@@ -97,6 +104,10 @@ body nav {
 }
 
 .sepia-mode nav {
+    background-color: #f5dda8;
+
+}
+.sepia-mode .footer {
     background-color: #f5dda8;
 
 }

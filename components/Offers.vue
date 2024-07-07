@@ -1,5 +1,9 @@
 <template>
-    <v-card class="text-center bg-blue-grey-lighten-3">
+    <h3 class="text-3xl text-center pb-2 text-green-darken-1 bg-slate-300 rounded-full font-bold mb-10 mt-16 w-[80%] mx-auto">
+      العروض
+    </h3>
+    <v-card class="text-center bg-grey-lighten-1 mx-10 rounded-lg">
+        
         <v-tabs v-model="tab" bg-color="green-darken-3">
             <v-tab
                 v-for="(item, index) in tabs"
@@ -18,7 +22,7 @@
                     :key="index"
                     :value="item.value"
                 >
-                    <img :src=item.imgSrc :alt="item.title" class="tab-image rounded"/>
+                    <img :src=item.imgSrc :alt="item.title" class="tab-image rounded mb-4"/>
                     <h1>{{ item.details }}</h1>
                 </v-window-item>
             </v-window>

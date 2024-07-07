@@ -4,7 +4,10 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   modules: [
-    '@nuxtjs/tailwindcss','vuetify-nuxt-module','@nuxtjs/color-mode'
+    '@nuxtjs/tailwindcss',
+    'vuetify-nuxt-module',
+    '@nuxtjs/color-mode',
+    "@nuxt/icon"
   ]
 
 })
