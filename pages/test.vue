@@ -1,6 +1,6 @@
 <template>
   <navBar />
-  <adminQuestions />
+  <adminQuestions class="mb-20"/>
   <adminOffers />
 
 </template>
