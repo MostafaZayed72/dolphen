@@ -16,7 +16,7 @@
     <!-- اختيار نوع السؤال لعرض الجدول -->
     <v-row>
       <v-col cols="12">
-        <v-select v-model="selectedQuestionType" :items="questionTypes" label="اختر نوع السؤال لعرضه" @change="filterQuestions"></v-select>
+        <v-select v-model="selectedQuestionType" :items="questionTypes" label="اختر نوع السؤال لعرضه" @change="fetchQuestions"></v-select>
       </v-col>
     </v-row>
 
@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import axios from 'axios';
 
 const dialog = ref(false);
@@ -125,7 +125,11 @@ const editQuestion = (item) => {
 
 const deleteQuestion = async (questionId) => {
   try {
-    const response = await axios.delete(`http://localhost:8000/v1/questions/${questionId}`);
+    const response = await axios.delete(`http://localhost:8000/v1/questions/${questionId}`,{
+      headers: {
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNTdXBlckFkbWluIjp0cnVlLCJpYXQiOjE3MjA1NjEzMDAsImV4cCI6MTcyMDYwNDUwMH0._4aej6xMXMt02uRZ44r23U7_Qt56wFK71sEJj-AC3b8'
+      }
+    });
     console.log('تم حذف السؤال بنجاح:', response.data.question);
     await fetchQuestions(); // لتحديث قائمة الأسئلة بعد الحذف
   } catch (error) {
@@ -133,12 +137,14 @@ const deleteQuestion = async (questionId) => {
   }
 };
 
-const filterQuestions = async () => {
-  await fetchQuestions();
-};
-
 onMounted(async () => {
   await fetchQuestions();
+});
+
+watch(selectedQuestionType, async (newValue, oldValue) => {
+  if (newValue !== oldValue) {
+    await fetchQuestions();
+  }
 });
 </script>
 
