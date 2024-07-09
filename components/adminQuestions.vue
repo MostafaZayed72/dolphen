@@ -5,35 +5,31 @@
         <h2 class="text-center">لوحة التحكم للأدمن</h2>
       </v-col>
     </v-row>
+
+    <!-- زر إضافة سؤال جديد -->
     <v-row>
-      <v-col cols="12" md="4">
-        <v-card>
-          <v-card-title>إضافة سؤال جديد</v-card-title>
-          <v-card-text>
-            <v-btn color="primary" @click="openDialog">إضافة</v-btn>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="12" md="4">
-        <v-card>
-          <v-card-title>تعديل سؤال موجود</v-card-title>
-          <v-card-text>
-            <v-select v-model="selectedQuestion" :items="questions" item-text="question" item-value="_id" label="اختر سؤالًا"></v-select>
-            <v-btn color="primary" @click="updateQuestion">تعديل</v-btn>
-          </v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="12" md="4">
-        <v-card>
-          <v-card-title>حذف سؤال موجود</v-card-title>
-          <v-card-text>
-            <v-select v-model="selectedQuestionToDelete" :items="questions" item-text="question" item-value="_id" label="اختر سؤالًا"></v-select>
-            <v-btn color="error" @click="deleteQuestion">حذف</v-btn>
-          </v-card-text>
-        </v-card>
+      <v-col cols="12" class="text-right">
+        <v-btn color="primary" @click="openDialog">إضافة سؤال جديد</v-btn>
       </v-col>
     </v-row>
 
+    <!-- جدول عرض الأسئلة -->
+    <v-row>
+      <v-col cols="12">
+        <v-data-table :headers="headers" :items="questions" class="elevation-1">
+          <template v-slot:item.actions="{ item }">
+            <v-btn icon @click="editQuestion(item)">
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+            <v-btn icon @click="deleteQuestion(item._id)">
+              <v-icon color="error">mdi-delete</v-icon>
+            </v-btn>
+          </template>
+        </v-data-table>
+      </v-col>
+    </v-row>
+
+    <!-- Dialog لإضافة سؤال جديد -->
     <v-dialog v-model="dialog" persistent max-width="600px">
       <v-card>
         <v-card-title>
@@ -52,6 +48,7 @@
     </v-dialog>
   </v-container>
 </template>
+
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRuntimeConfig } from '#imports';
@@ -69,11 +66,16 @@ const selectedQuestionEdit = ref({
   question: '',
   answer: ''
 });
-const selectedQuestionToDelete = ref(null);
 const questionTypes = ref([
-  'student',
-  'applier'
+   'student' ,
+   'applier' 
 ]);
+
+const headers = [
+  { text: 'السؤال', align: 'start', value: 'question' },
+  { text: 'نوع السؤال', value: 'type' },
+  { text: 'أفعال', value: 'actions', sortable: false }
+];
 
 const config = useRuntimeConfig();
 
@@ -103,7 +105,7 @@ const addQuestion = async () => {
   try {
     const response = await axios.post(`http://localhost:8000/v1/questions`, newQuestion.value, {
       headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNTdXBlckFkbWluIjp0cnVlLCJpYXQiOjE3MjA1NTM0NDcsImV4cCI6MTcyMDU5NjY0N30.C73vChLDaqwdXRTq7McDMiKqX7EsoL8mPJ77mqFJvQU'
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNTdXBlckFkbWluIjp0cnVlLCJpYXQiOjE3MjA1NjA2OTcsImV4cCI6MTcyMDYwMzg5N30.qLSKsOPFAOn5_G0uFUWElA7LZviXvw7UgKH_OX7dw6A'
       }
     });
     console.log('تمت إضافة السؤال بنجاح:', response.data.question);
@@ -112,6 +114,11 @@ const addQuestion = async () => {
   } catch (error) {
     console.error('حدث خطأ في إضافة السؤال:', error.message);
   }
+};
+
+const editQuestion = (item) => {
+  selectedQuestion.value = item._id;
+  selectedQuestionEdit.value = { question: item.question, answer: item.answer };
 };
 
 const updateQuestion = async () => {
@@ -127,12 +134,10 @@ const updateQuestion = async () => {
   }
 };
 
-const deleteQuestion = async () => {
-  if (!selectedQuestionToDelete.value) return;
+const deleteQuestion = async (questionId) => {
   try {
-    const response = await axios.delete(`http://localhost:8000/v1/questions/${selectedQuestionToDelete.value}`);
+    const response = await axios.delete(`http://localhost:8000/v1/questions/${questionId}`);
     console.log('تم حذف السؤال بنجاح:', response.data.question);
-    selectedQuestionToDelete.value = null;
     await fetchQuestions(); // لتحديث قائمة الأسئلة بعد الحذف
   } catch (error) {
     console.error('حدث خطأ في حذف السؤال:', error.message);
@@ -143,3 +148,9 @@ onMounted(async () => {
   await fetchQuestions();
 });
 </script>
+
+<style>
+.text-right {
+  text-align: right;
+}
+</style>
