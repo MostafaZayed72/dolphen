@@ -18,7 +18,7 @@
           >
             <input 
             style="border: 1px grey solid;"
-            class="pl-20 md:pl-24 py-2 mx-auto rounded flex justify-center"
+            class="w-[80%] py-2 mx-auto rounded flex justify-center"
               v-model="field.value" 
               :placeholder="field.label"
             />
