@@ -67,6 +67,10 @@
 import { ref, onMounted, watch } from 'vue';
 import axios from 'axios';
 
+const token = ref()
+onMounted(() => {
+  token.value = localStorage.getItem('accessToken')
+})
 const dialog = ref(false);
 const editDialog = ref(false);
 const offers = ref([]);
@@ -92,7 +96,7 @@ const fetchOffers = async () => {
   try {
     const response = await axios.get(`http://localhost:8000/v1/offers`, {
       headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNTdXBlckFkbWluIjp0cnVlLCJpYXQiOjE3MjA1NjEzMDAsImV4cCI6MTcyMDYwNDUwMH0._4aej6xMXMt02uRZ44r23U7_Qt56wFK71sEJj-AC3b8'
+        Authorization: `Bearer ${token.value}` 
       }
     });
     offers.value = response.data.data;
@@ -126,7 +130,7 @@ const addOffer = async () => {
     const response = await axios.post(`http://localhost:8000/v1/offers`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNTdXBlckFkbWluIjp0cnVlLCJpYXQiOjE3MjA1NjEzMDAsImV4cCI6MTcyMDYwNDUwMH0._4aej6xMXMt02uRZ44r23U7_Qt56wFK71sEJj-AC3b8'
+        Authorization: '`Bearer ${token.value}`'
       }
     });
     console.log('تمت إضافة العرض بنجاح:', response.data);
@@ -154,7 +158,7 @@ const updateOffer = async () => {
       title: editedOffer.value.title
     }, {
       headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNTdXBlckFkbWluIjp0cnVlLCJpYXQiOjE3MjA1NjEzMDAsImV4cCI6MTcyMDYwNDUwMH0._4aej6xMXMt02uRZ44r23U7_Qt56wFK71sEJj-AC3b8'
+        Authorization: '`Bearer ${token.value}`'
       }
     });
     console.log('تم تعديل العرض بنجاح:', response.data);
@@ -179,7 +183,7 @@ const deleteOffer = async (offerId) => {
   try {
     const response = await axios.delete(`http://localhost:8000/v1/offers/${offerId}`, {
       headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNTdXBlckFkbWluIjp0cnVlLCJpYXQiOjE3MjA1NjEzMDAsImV4cCI6MTcyMDYwNDUwMH0._4aej6xMXMt02uRZ44r23U7_Qt56wFK71sEJj-AC3b8'
+        Authorization: '`Bearer ${token.value}`'
       }
     });
     console.log('تم حذف العرض بنجاح:', response.data);
@@ -198,7 +202,7 @@ watch(selectedOffer, async (newValue, oldValue) => {
     try {
       const response = await axios.get(`http://localhost:8000/v1/offers/${newValue}`, {
         headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNTdXBlckFkbWluIjp0cnVlLCJpYXQiOjE3MjA1NjEzMDAsImV4cCI6MTcyMDYwNDUwMH0._4aej6xMXMt02uRZ44r23U7_Qt56wFK71sEJj-AC3b8'
+          Authorization: '`Bearer ${token.value}`'
         }
       });
       console.log('تفاصيل العرض:', response.data);

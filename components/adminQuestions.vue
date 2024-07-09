@@ -76,6 +76,11 @@
 import { ref, onMounted, watch } from 'vue';
 import axios from 'axios';
 
+const token = ref()
+onMounted(() => {
+  token.value = localStorage.getItem('accessToken')
+})
+
 const dialog = ref(false);
 const editDialog = ref(false);
 const questions = ref([]);
@@ -99,7 +104,7 @@ const fetchQuestions = async () => {
   try {
     const response = await axios.get(`http://localhost:8000/v1/questions?type=${selectedQuestionType.value}`, {
       headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNTdXBlckFkbWluIjp0cnVlLCJpYXQiOjE3MjA1NjEzMDAsImV4cCI6MTcyMDYwNDUwMH0._4aej6xMXMt02uRZ44r23U7_Qt56wFK71sEJj-AC3b8'
+        Authorization: `Bearer ${token.value}`
       }
     });
     questions.value = response.data.data;
@@ -125,7 +130,7 @@ const addQuestion = async () => {
   try {
     const response = await axios.post(`http://localhost:8000/v1/questions`, newQuestion.value, {
       headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNTdXBlckFkbWluIjp0cnVlLCJpYXQiOjE3MjA1NjEzMDAsImV4cCI6MTcyMDYwNDUwMH0._4aej6xMXMt02uRZ44r23U7_Qt56wFK71sEJj-AC3b8'
+        Authorization: `Bearer ${token.value}`
       }
     });
     console.log('تمت إضافة السؤال بنجاح:', response.data.question);
@@ -148,7 +153,7 @@ const updateQuestion = async () => {
       question: editedQuestionText.value
     }, {
       headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNTdXBlckFkbWluIjp0cnVlLCJpYXQiOjE3MjA1NjEzMDAsImV4cCI6MTcyMDYwNDUwMH0._4aej6xMXMt02uRZ44r23U7_Qt56wFK71sEJj-AC3b8'
+        Authorization: `Bearer ${token.value}`
       }
     });
     console.log('تم تعديل السؤال بنجاح:', response.data.question);
@@ -169,7 +174,7 @@ const deleteQuestion = async (questionId) => {
   try {
     const response = await axios.delete(`http://localhost:8000/v1/questions/${questionId}`,{
       headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNTdXBlckFkbWluIjp0cnVlLCJpYXQiOjE3MjA1NjEzMDAsImV4cCI6MTcyMDYwNDUwMH0._4aej6xMXMt02uRZ44r23U7_Qt56wFK71sEJj-AC3b8'
+        Authorization: `Bearer ${token.value}`
       }
     });
     console.log('تم حذف السؤال بنجاح:', response.data.question);
