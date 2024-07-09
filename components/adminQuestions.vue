@@ -53,6 +53,22 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <!-- Dialog لتعديل السؤال -->
+    <v-dialog v-model="editDialog" persistent max-width="600px">
+      <v-card>
+        <v-card-title>
+          <span class="headline">تعديل السؤال</span>
+        </v-card-title>
+        <v-card-text>
+          <v-text-field v-model="editedQuestionText" label="أدخل السؤال الجديد"></v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="green darken-1" text @click="updateQuestion">حفظ التعديلات</v-btn>
+          <v-btn color="grey darken-1" text @click="closeEditDialog">إلغاء</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -61,12 +77,14 @@ import { ref, onMounted, watch } from 'vue';
 import axios from 'axios';
 
 const dialog = ref(false);
+const editDialog = ref(false);
 const questions = ref([]);
 const newQuestion = ref({
   question: '',
   type: ''
 });
 const newQuestionType = ref(null);
+const editedQuestionText = ref('');
 const selectedQuestion = ref(null);
 const questionTypes = ref(['student', 'applier']);
 const selectedQuestionType = ref('student'); // افترض اختيار نوع السؤال الافتراضي
@@ -120,7 +138,31 @@ const addQuestion = async () => {
 
 const editQuestion = (item) => {
   selectedQuestion.value = item.id;
-  // إعداد قيمة التحرير المختارة للتعديل
+  editedQuestionText.value = item.text;
+  editDialog.value = true;
+};
+
+const updateQuestion = async () => {
+  try {
+    const response = await axios.patch(`http://localhost:8000/v1/questions/${selectedQuestion.value}`, {
+      question: editedQuestionText.value
+    }, {
+      headers: {
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNTdXBlckFkbWluIjp0cnVlLCJpYXQiOjE3MjA1NjEzMDAsImV4cCI6MTcyMDYwNDUwMH0._4aej6xMXMt02uRZ44r23U7_Qt56wFK71sEJj-AC3b8'
+      }
+    });
+    console.log('تم تعديل السؤال بنجاح:', response.data.question);
+    closeEditDialog();
+    await fetchQuestions(); // لتحديث قائمة الأسئلة بعد التعديل
+  } catch (error) {
+    console.error('حدث خطأ في تعديل السؤال:', error.message);
+  }
+};
+
+const closeEditDialog = () => {
+  editDialog.value = false;
+  selectedQuestion.value = null;
+  editedQuestionText.value = '';
 };
 
 const deleteQuestion = async (questionId) => {
