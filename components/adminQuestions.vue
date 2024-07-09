@@ -13,6 +13,13 @@
       </v-col>
     </v-row>
 
+    <!-- اختيار نوع السؤال لعرض الجدول -->
+    <v-row>
+      <v-col cols="12">
+        <v-select v-model="selectedQuestionType" :items="questionTypes" label="اختر نوع السؤال لعرضه" @change="filterQuestions"></v-select>
+      </v-col>
+    </v-row>
+
     <!-- جدول عرض الأسئلة -->
     <v-row>
       <v-col cols="12">
@@ -21,7 +28,7 @@
             <v-btn icon @click="editQuestion(item)">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
-            <v-btn icon @click="deleteQuestion(item._id)">
+            <v-btn icon @click="deleteQuestion(item.id)">
               <v-icon color="error">mdi-delete</v-icon>
             </v-btn>
           </template>
@@ -36,7 +43,7 @@
           <span class="headline">إضافة سؤال جديد</span>
         </v-card-title>
         <v-card-text>
-          <v-select v-model="newQuestionType" :items="questionTypes" item-text="text" item-value="value" label="اختر نوع السؤال"></v-select>
+          <v-select v-model="newQuestionType" :items="questionTypes" label="اختر نوع السؤال"></v-select>
           <v-text-field v-if="newQuestionType" v-model="newQuestion.question" label="أدخل السؤال"></v-text-field>
         </v-card-text>
         <v-card-actions>
@@ -51,7 +58,6 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRuntimeConfig } from '#imports';
 import axios from 'axios';
 
 const dialog = ref(false);
@@ -62,27 +68,23 @@ const newQuestion = ref({
 });
 const newQuestionType = ref(null);
 const selectedQuestion = ref(null);
-const selectedQuestionEdit = ref({
-  question: '',
-  answer: ''
-});
-const questionTypes = ref([
-   'student' ,
-   'applier' 
-]);
+const questionTypes = ref(['student', 'applier']);
+const selectedQuestionType = ref('student'); // افترض اختيار نوع السؤال الافتراضي
 
 const headers = [
-  { text: 'السؤال', align: 'start', value: 'question' },
-  { text: 'نوع السؤال', value: 'type' },
+  { text: 'السؤال', align: 'start', value: 'text' }, // تعديل القيمة إلى 'text' بدلاً من 'question'
+  { text: 'نوع السؤال', value: 'questionType' }, // تعديل القيمة إلى 'questionType' بدلاً من 'type'
   { text: 'أفعال', value: 'actions', sortable: false }
 ];
 
-const config = useRuntimeConfig();
-
 const fetchQuestions = async () => {
   try {
-    const response = await axios.get(`http://localhost:8000/v1/questions`);
-    questions.value = response.data.questions;
+    const response = await axios.get(`http://localhost:8000/v1/questions?type=${selectedQuestionType.value}`, {
+      headers: {
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNTdXBlckFkbWluIjp0cnVlLCJpYXQiOjE3MjA1NjEzMDAsImV4cCI6MTcyMDYwNDUwMH0._4aej6xMXMt02uRZ44r23U7_Qt56wFK71sEJj-AC3b8'
+      }
+    });
+    questions.value = response.data.data;
   } catch (error) {
     console.error('حدث خطأ في جلب الأسئلة:', error.message);
   }
@@ -105,7 +107,7 @@ const addQuestion = async () => {
   try {
     const response = await axios.post(`http://localhost:8000/v1/questions`, newQuestion.value, {
       headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNTdXBlckFkbWluIjp0cnVlLCJpYXQiOjE3MjA1NjA2OTcsImV4cCI6MTcyMDYwMzg5N30.qLSKsOPFAOn5_G0uFUWElA7LZviXvw7UgKH_OX7dw6A'
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaXNTdXBlckFkbWluIjp0cnVlLCJpYXQiOjE3MjA1NjEzMDAsImV4cCI6MTcyMDYwNDUwMH0._4aej6xMXMt02uRZ44r23U7_Qt56wFK71sEJj-AC3b8'
       }
     });
     console.log('تمت إضافة السؤال بنجاح:', response.data.question);
@@ -117,21 +119,8 @@ const addQuestion = async () => {
 };
 
 const editQuestion = (item) => {
-  selectedQuestion.value = item._id;
-  selectedQuestionEdit.value = { question: item.question, answer: item.answer };
-};
-
-const updateQuestion = async () => {
-  if (!selectedQuestion.value) return;
-  try {
-    const response = await axios.put(`http://localhost:8000/v1/questions/${selectedQuestion.value}`, selectedQuestionEdit.value);
-    console.log('تم تعديل السؤال بنجاح:', response.data.question);
-    selectedQuestion.value = null;
-    selectedQuestionEdit.value = { question: '', answer: '' };
-    await fetchQuestions(); // لتحديث قائمة الأسئلة بعد التعديل
-  } catch (error) {
-    console.error('حدث خطأ في تعديل السؤال:', error.message);
-  }
+  selectedQuestion.value = item.id;
+  // إعداد قيمة التحرير المختارة للتعديل
 };
 
 const deleteQuestion = async (questionId) => {
@@ -142,6 +131,10 @@ const deleteQuestion = async (questionId) => {
   } catch (error) {
     console.error('حدث خطأ في حذف السؤال:', error.message);
   }
+};
+
+const filterQuestions = async () => {
+  await fetchQuestions();
 };
 
 onMounted(async () => {
