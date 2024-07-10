@@ -130,7 +130,7 @@ const addOffer = async () => {
     const response = await axios.post(`http://localhost:8000/v1/offers`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
-        Authorization: '`Bearer ${token.value}`'
+        Authorization: `Bearer ${token.value}`
       }
     });
     console.log('تمت إضافة العرض بنجاح:', response.data);
@@ -158,7 +158,7 @@ const updateOffer = async () => {
       title: editedOffer.value.title
     }, {
       headers: {
-        Authorization: '`Bearer ${token.value}`'
+        Authorization: `Bearer ${token.value}`
       }
     });
     console.log('تم تعديل العرض بنجاح:', response.data);
@@ -183,7 +183,7 @@ const deleteOffer = async (offerId) => {
   try {
     const response = await axios.delete(`http://localhost:8000/v1/offers/${offerId}`, {
       headers: {
-        Authorization: '`Bearer ${token.value}`'
+        Authorization: `Bearer ${token.value}`
       }
     });
     console.log('تم حذف العرض بنجاح:', response.data);
@@ -202,7 +202,7 @@ watch(selectedOffer, async (newValue, oldValue) => {
     try {
       const response = await axios.get(`http://localhost:8000/v1/offers/${newValue}`, {
         headers: {
-          Authorization: '`Bearer ${token.value}`'
+          Authorization: `Bearer ${token.value}`
         }
       });
       console.log('تفاصيل العرض:', response.data);

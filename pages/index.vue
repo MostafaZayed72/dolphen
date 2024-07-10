@@ -6,6 +6,7 @@
         <About class="mt-16" />
       </v-lazy>
       <v-lazy :min-height="200" :options="{ 'threshold': 0.5 }" transition="fade-transition" id="skills">
+        
         <Offers class="mt-16" />
       </v-lazy>
    <v-lazy :min-height="200" :options="{ 'threshold': 0.5 }" transition="fade-transition" id="services">

@@ -1,67 +1,72 @@
 <template>
-    <h3 class="text-3xl text-center pb-2 text-green-darken-1 bg-slate-300 rounded-full font-bold mb-10 mt-16 w-[80%] mx-auto">
-      العروض
-    </h3>
-    <v-card class="text-center bg-grey-lighten-1 mx-10 rounded-lg">
-        
-        <v-tabs v-model="tab" bg-color="green-darken-3">
-            <v-tab
-                v-for="(item, index) in tabs"
-                :key="index"
-                class="mx-auto"
-                :value="item.value"
-            >
-                {{ item.title }}
-            </v-tab>
-        </v-tabs>
-
-        <v-card-text>
-            <v-window v-model="tab">
-                <v-window-item
-                    v-for="(item, index) in tabs"
-                    :key="index"
-                    :value="item.value"
-                >
-                    <img :src=item.imgSrc :alt="item.title" class="tab-image rounded mb-4"/>
-                    <h1>{{ item.details }}</h1>
-                </v-window-item>
-            </v-window>
-        </v-card-text>
-    </v-card>
-</template>
-
-<script>
-export default {
-    data: () => ({
-        tab: null,
-        tabs: [
-            {
-                id: '1',
-                title: 'العرض الاول',
-                value: 'one',
-                imgSrc: 'https://cdn.shopify.com/s/files/1/0330/1874/0876/files/2_a264cf61-82b2-4603-8bbc-6e831e227a0e.png?v=1660590562',
-                details: 'تفاصيل العرض الاول',
-            },
-            {
-                id: '2',
-                title: 'العرض الثاني',
-                value: 'two',
-                imgSrc: 'https://cdn.shopify.com/s/files/1/0330/1874/0876/files/Artboard_30_copy_3_e55b4322-71b4-459a-b47b-d56e528c4a29.jpg?v=1683973140',
-                details: 'تفاصيل العرض الثاني',
-            },
-        ],
-    }),
-}
-</script>
-
-<style>
-.v-tab--selected {
-    color: #eeea03;
-}
-.tab-image {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    margin: 0 auto;
-}
-</style>
+    <div>
+      <h3 class="text-3xl text-center pb-2 text-green-darken-1 bg-slate-300 rounded-full font-bold mb-10 mt-16 w-[80%] mx-auto">
+        العروض
+      </h3>
+      <v-card class="text-center bg-grey-lighten-1 sm:mx-1 md:mx-10 rounded-lg">
+          
+          <v-tabs v-model="tab" bg-color="green-darken-3">
+              <v-tab
+                  v-for="(item, index) in tabs"
+                  :key="index"
+                  class="mx-auto"
+                  :value="item.id"
+              >
+                  {{ item.title }}
+              </v-tab>
+          </v-tabs>
+  
+          <v-card-text>
+              <v-window v-model="tab">
+                  <v-window-item
+                      v-for="(item, index) in tabs"
+                      :key="index"
+                      :value="item.id"
+                  >
+                      <img :src="item.imagesUrl" :alt="item.title" class="tab-image rounded mb-4"/>
+                      <h1>{{ item.description }}</h1>
+                  </v-window-item>
+              </v-window>
+          </v-card-text>
+      </v-card>
+    </div>
+  </template>
+  
+  <script setup>
+  import { ref, onMounted } from 'vue';
+  import axios from 'axios';
+  
+  const tabs = ref([]);
+  
+  onMounted(async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/v1/offers');
+      tabs.value = response.data.data.map(item => ({
+        id: item.id,
+        title: item.title,
+        description: item.description,
+        imagesUrl: `http://localhost:8000/${item.imagesUrl}` // تعديل الرابط بناءً على المسار الحقيقي للصورة
+      }));
+      
+      // تعيين التاب الأخير كقيمة افتراضية لل tab
+      tab.value = tabs.value[0].id;
+    } catch (error) {
+      console.error('حدث خطأ في جلب بيانات العروض:', error.message);
+    }
+  });
+  
+  const tab = ref(null); // للتحكم في التبويب المحدد بواسطة المستخدم
+  </script>
+  
+  <style scoped>
+  .v-tab--selected {
+      color: #eeea03;
+  }
+  .tab-image {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      margin: 0 auto;
+  }
+  </style>
+  
