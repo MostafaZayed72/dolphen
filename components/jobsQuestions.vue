@@ -62,7 +62,7 @@ const submitAnswers = async () => {
     }));
 
     const body = {
-      userName: 'ahmed', // استبدل بالاسم المستخدم الفعلي
+      userName: 'name', // استبدل بالاسم المستخدم الفعلي
       applierType: 'applier',
       answers: answers
     };
