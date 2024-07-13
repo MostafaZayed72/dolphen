@@ -7,7 +7,16 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     'vuetify-nuxt-module',
     '@nuxtjs/color-mode',
-    "@nuxt/icon"
-  ]
+    "@nuxt/icon",
+    "nuxt-security"
+  ],
+
+  security:{
+headers:{
+  contentSecurityPolicy: {
+    'img-src': ['self', 'data:', 'https://backend.babybuildingksa.com/'],
+  },
+}
+  }
 
 })
