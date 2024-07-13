@@ -39,12 +39,12 @@
             </select>
 
           </div>
-          <img src="/assets/imgs/logo.jpeg" class="w-12 rounded-xl md:hidden" alt="" @click="toHome">
+          <img src="/assets/imgs/logo.jpeg" class="w-12 rounded-xl md:hidden cursor-pointer" alt="" @click="toHome">
 
         </div>
 
         <div >
-            <NuxtLink to="/"><img src="/assets/imgs/logo.jpeg" class="w-12 rounded-xl hidden md:flex" alt=""></NuxtLink>
+            <NuxtLink to="/"><img src="/assets/imgs/logo.jpeg" class="w-12 rounded-xl hidden md:flex cursor-pointer" alt=""></NuxtLink>
         </div>
     </nav>
 </template>
