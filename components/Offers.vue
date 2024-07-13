@@ -23,7 +23,7 @@
                       :key="index"
                       :value="item.id"
                   >
-                      <img :src="item.imagesUrl" :alt="item.title" class="tab-image rounded mb-4"/>
+                      <img :src="item.imagesUrl" :alt="item.title" class="tab-image rounded mb-4" crossorigin="anonymous"/>
                       <h1>{{ item.description }}</h1>
                   </v-window-item>
               </v-window>
