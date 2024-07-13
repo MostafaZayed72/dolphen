@@ -102,7 +102,7 @@ const headers = [
 
 const fetchQuestions = async () => {
   try {
-    const response = await axios.get(`http://localhost:8000/v1/questions?type=${selectedQuestionType.value}`, {
+    const response = await axios.get(`https://backend.babybuildingksa.com/v1/questions?type=${selectedQuestionType.value}`, {
       headers: {
         Authorization: `Bearer ${token.value}`
       }
@@ -128,7 +128,7 @@ const addQuestion = async () => {
   newQuestion.value.type = newQuestionType.value;
 
   try {
-    const response = await axios.post(`http://localhost:8000/v1/questions`, newQuestion.value, {
+    const response = await axios.post(`https://backend.babybuildingksa.com/v1/questions`, newQuestion.value, {
       headers: {
         Authorization: `Bearer ${token.value}`
       }
@@ -149,7 +149,7 @@ const editQuestion = (item) => {
 
 const updateQuestion = async () => {
   try {
-    const response = await axios.patch(`http://localhost:8000/v1/questions/${selectedQuestion.value}`, {
+    const response = await axios.patch(`https://backend.babybuildingksa.com/v1/questions/${selectedQuestion.value}`, {
       question: editedQuestionText.value
     }, {
       headers: {
@@ -172,7 +172,7 @@ const closeEditDialog = () => {
 
 const deleteQuestion = async (questionId) => {
   try {
-    const response = await axios.delete(`http://localhost:8000/v1/questions/${questionId}`,{
+    const response = await axios.delete(`https://backend.babybuildingksa.com/v1/questions/${questionId}`,{
       headers: {
         Authorization: `Bearer ${token.value}`
       }

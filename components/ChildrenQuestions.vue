@@ -30,7 +30,7 @@ const questions = ref([]);
 
 const fetchQuestions = async () => {
   try {
-    const response = await axios.get('http://localhost:8000/v1/questions?type=student');
+    const response = await axios.get('https://backend.babybuildingksa.com/v1/questions?type=student');
     questions.value = response.data.data.map(item => ({
       id: item.id,
       text: item.text,
@@ -64,7 +64,7 @@ const submitAnswers = async () => {
       answers: answers
     };
 
-    const response = await axios.post('http://localhost:8000/v1/answers', body);
+    const response = await axios.post('https://backend.babybuildingksa.com/v1/answers', body);
 
     console.log('تم إرسال الإجابات بنجاح:', response.data);
 

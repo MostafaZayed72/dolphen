@@ -94,7 +94,7 @@ const headers = [
 
 const fetchOffers = async () => {
   try {
-    const response = await axios.get(`http://localhost:8000/v1/offers`, {
+    const response = await axios.get(`https://backend.babybuildingksa.com/v1/offers`, {
       headers: {
         Authorization: `Bearer ${token.value}` 
       }
@@ -127,7 +127,7 @@ const addOffer = async () => {
   formData.append('title', newOffer.value.title);
 
   try {
-    const response = await axios.post(`http://localhost:8000/v1/offers`, formData, {
+    const response = await axios.post(`https://backend.babybuildingksa.com/v1/offers`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token.value}`
@@ -153,7 +153,7 @@ const editOffer = (item) => {
 
 const updateOffer = async () => {
   try {
-    const response = await axios.put(`http://localhost:8000/v1/offers/${editedOffer.value.id}`, {
+    const response = await axios.put(`https://backend.babybuildingksa.com/v1/offers/${editedOffer.value.id}`, {
       description: editedOffer.value.description,
       title: editedOffer.value.title
     }, {
@@ -181,7 +181,7 @@ const closeEditDialog = () => {
 
 const deleteOffer = async (offerId) => {
   try {
-    const response = await axios.delete(`http://localhost:8000/v1/offers/${offerId}`, {
+    const response = await axios.delete(`https://backend.babybuildingksa.com/v1/offers/${offerId}`, {
       headers: {
         Authorization: `Bearer ${token.value}`
       }
@@ -200,7 +200,7 @@ onMounted(async () => {
 watch(selectedOffer, async (newValue, oldValue) => {
   if (newValue !== oldValue && newValue !== null) {
     try {
-      const response = await axios.get(`http://localhost:8000/v1/offers/${newValue}`, {
+      const response = await axios.get(`https://backend.babybuildingksa.com/v1/offers/${newValue}`, {
         headers: {
           Authorization: `Bearer ${token.value}`
         }

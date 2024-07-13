@@ -1,5 +1,7 @@
 <template>
   <div class="image-gallery">
+    <img src='https://backend.babybuildingksa.com/uploads/1720832562917-897253660.jpg' alt="">
+
     <h1 class="text-3xl font-bold text-center mb-6">معرض الصور</h1>
     <div class="gallery">
       <div v-for="(image, index) in images" :key="index" class="gallery-item">
@@ -19,12 +21,12 @@ const images = ref([]);
 
 onMounted(async () => {
   try {
-    const response = await axios.get('http://localhost:8000/v1/offers');
+    const response = await axios.get('https://backend.babybuildingksa.com/v1/offers');
     images.value = response.data.data.map(item => ({
       id: item.id,
       title: item.title,
       description: item.description,
-      imagesUrl: `http://localhost:8000/${item.imagesUrl}` // تعديل الرابط بناءً على المسار الحقيقي للصورة
+      imagesUrl: `https://backend.babybuildingksa.com/uploads/${item.imagesUrl}` // تعديل الرابط بناءً على المسار الحقيقي للصورة
     }));
   } catch (error) {
     console.error('حدث خطأ في جلب بيانات الصور:', error.message);

@@ -53,7 +53,7 @@ onMounted(() => {
 
 const fetchUserData = async () => {
   try {
-    const response = await axios.get(`http://localhost:8000/v1/answers/appliers?type=${userType.value}`, {
+    const response = await axios.get(`https://backend.babybuildingksa.com/v1/answers/appliers?type=${userType.value}`, {
       headers: {
         Authorization: `Bearer ${token.value}`
       }
@@ -76,7 +76,7 @@ const filteredUsers = computed(() => {
 const deleteAnswer = async (userId) => {
   if (confirm('هل أنت متأكد أنك تريد حذف هذه الإجابات؟')) {
     try {
-      await axios.delete(`http://localhost:8000/v1/answers/${userId}`, {
+      await axios.delete(`https://backend.babybuildingksa.com/v1/answers/${userId}`, {
         headers: {
           Authorization: `Bearer ${token.value}`
         }
