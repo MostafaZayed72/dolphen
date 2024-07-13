@@ -45,7 +45,7 @@
         id: item.id,
         title: item.title,
         description: item.description,
-        imagesUrl: `https://backend.babybuildingksa.com/uploads/1720832562917-897253660.jpg` // تعديل الرابط بناءً على المسار الحقيقي للصورة
+        imagesUrl: `https://backend.babybuildingksa.com/uploads/${item.imagesUrl}` // تعديل الرابط بناءً على المسار الحقيقي للصورة
       }));
       
       // تعيين التاب الأخير كقيمة افتراضية لل tab
