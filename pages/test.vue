@@ -1,6 +1,7 @@
 <template>
   <div class="image-gallery">
     <img src='https://backend.babybuildingksa.com/uploads/1720832562917-897253660.jpg' alt="">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwcszTCj6hXeiwxvr43waicLD5Nq8nwawaOQ&s" alt="">
 
     <h1 class="text-3xl font-bold text-center mb-6">معرض الصور</h1>
     <div class="gallery">

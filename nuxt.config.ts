@@ -13,7 +13,8 @@ export default defineNuxtConfig({
 
   security:{
 headers:{
-  crossOriginEmbedderPolicy: false,
+  crossOriginResourcePolicy : 'cross-origin',
+  
   contentSecurityPolicy: {
     'img-src': ['self', 'data:', 'https://backend.babybuildingksa.com/'],
   },
