@@ -1,10 +1,10 @@
 <template>
     <v-row>
         <v-col>
-            <v-card-title>
+            <v-card-title >
 
 
-                <v-menu>
+                <v-menu style="direction: rtl;">
                     <template v-slot:activator="{ props }">
                         <v-btn icon="mdi-menu" v-bind="props" color="green"></v-btn>
                     </template>

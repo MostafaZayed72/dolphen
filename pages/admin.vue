@@ -27,12 +27,14 @@ import AdminQuestions from '@/components/AdminQuestions.vue';
 import AdminOffers from '@/components/AdminOffers.vue';
 import NewSection from '@/components/NewSection.vue';
 import Answers from '@/components/Answers.vue';
+import UpdateLogo from '@/components/UpdateLogo.vue';
 
 // قائمة الأقسام
 const sections = [
   { name: 'الأسئلة الإدارية', component: AdminQuestions },
   { name: 'العروض الإدارية', component: AdminOffers },
   { name: 'الأقسام الجديدة', component: NewSection },
+  { name: 'تعديل اللوجو', component: UpdateLogo },
   { name: 'الإجابات', component: Answers }
 ];
 

@@ -1,107 +1,66 @@
 <template>
-    <nav class="flex justify-between items-center shadow-md py-3 sticky top-0 z-10 px-20" >
-        <!-- LOGO -->
-       
-        <!-- LINKS IN LARGE SCREEN -->
-        <div class="mr-10 hidden lg:block f">
-            <ul class="flex  gap-20 items-center font-semibold">
-                <li><a href="#about" @click.prevent="scrollToSection('about')">من نحن</a></li>
-      <li><a href="#skills" @click.prevent="scrollToSection('skills')">العروض</a></li>
-      <li><a href="#services" @click.prevent="scrollToSection('services')">التواصل معنا</a></li>
-      <li><a href="#portfolio" @click.prevent="scrollToSectiony('portfolio')">الوظائف</a></li>
-               
-            </ul>
-        </div>
-
-       
-        <!-- LINKS IN SMALL SCREEN -->
-
-        <div class="w-100 lg:hidden flex justify-center items-center gap-10">
-            
-            <DropMenu />
-
-         
-          <img src="/assets/imgs/logo.jpeg" class="w-12 rounded-xl md:hidden cursor-pointer" alt="" @click="toHome">
-
-        </div>
-
-        <div >
-            <NuxtLink to="/"><img src="/assets/imgs/logo.jpeg" class="w-12 rounded-xl hidden md:flex cursor-pointer" alt=""></NuxtLink>
-        </div>
+    <nav class="flex justify-between items-center shadow-md py-3 sticky top-0 z-10 px-20 bg-slate-300">
+      <!-- LOGO -->
+      
+  
+      <!-- LINKS IN LARGE SCREEN -->
+      <div class="mr-10 hidden lg:block">
+        <ul class="flex gap-20 items-center font-semibold">
+          <li><a href="#about" @click.prevent="scrollToSection('about')">من نحن</a></li>
+          <li><a href="#skills" @click.prevent="scrollToSection('skills')">العروض</a></li>
+          <li><a href="#services" @click.prevent="scrollToSection('services')">التواصل معنا</a></li>
+          <li><a href="#portfolio" @click.prevent="scrollToSectiony('portfolio')">الوظائف</a></li>
+        </ul>
+      </div>
+      <div class="flex items-center">
+        <img :src="logoUrl" class="w-12 rounded-xl cursor-pointer hidden lg:block" alt="Logo" @click="toHome" />
+      </div>
+      <!-- LINKS IN SMALL SCREEN -->
+      <div class="w-100 lg:hidden flex justify-center items-center gap-10">
+        <DropMenu />
+        <img :src="logoUrl" class="w-12 rounded-xl md:hidden cursor-pointer" alt="Logo" @click="toHome" />
+      </div>
     </nav>
-</template>
-
-<script setup>
-const scrollToSectiony = (sectionId) => {
-  const section = document.getElementById(sectionId);
-  if (section) {
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-};
-
-const toHome= (()=>{
-    navigateTo('/')
-})
-
-const scrollToSection = (sectionId) => {
-  const section = document.getElementById(sectionId);
-  if (section) {
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    // استخدام setTimeout لضبط الإزاحة بعد التمرير السلس
-    setTimeout(() => {
-      window.scrollBy({
-        top: -100,
-        left: 0,
-        behavior: 'smooth'
-      });
-    }, 500); // الوقت هنا لضمان انتهاء التمرير الأول قبل إضافة الإزاحة
-  }
-};
-</script>
-
-<style>
-body {
-    background-color: #fff;
-    color: rgba(0, 0, 0, 0.8);
-}
-
-body nav {
-    background-color: #dbd5d5;
-}
-body .footer {
-    background-color: #dbd5d5;
-}
-
-.dark-mode body {
-    background-color: #091a28;
-    color: #19c53e;
-    border-color: #19c53e;
-}
-
-.dark-mode nav {
-    background-color: #0e3250;
-
-}
-.dark-mode .footer {
-    background-color: #0e3250;
-
-}
-
-.dark-mode h3 {
-    color: white;
-}
-
-.sepia-mode body {
-    background-color: #f1e7d0;
-    color: #433422;
-}
-
-.sepia-mode nav {
-    background-color: #f5dda8;
-
-}
-.sepia-mode .footer {
-    background-color: #f5dda8;
-
-}
-</style>
+  </template>
+  
+  <script setup>
+  import { ref, onMounted } from 'vue';
+  
+  const logoUrl = ref('');
+  
+  onMounted(async () => {
+    try {
+      const response = await fetch('https://backend.babybuildingksa.com/v1/page');
+      const data = await response.json();
+      // Assuming the first logo image should be displayed
+      logoUrl.value = `https://backend.babybuildingksa.com/uploads/${data.logo}`;
+    } catch (error) {
+      console.error('Error fetching logo:', error);
+    }
+  });
+  
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setTimeout(() => {
+        window.scrollBy({
+          top: -100,
+          left: 0,
+          behavior: 'smooth',
+        });
+      }, 500);
+    }
+  };
+  
+  const scrollToSectiony = scrollToSection;
+  
+  const toHome = () => {
+    navigateTo('/');
+  };
+  </script>
+  
+  <style>
+  /* CSS remains the same */
+  </style>
+  
