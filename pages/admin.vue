@@ -23,19 +23,19 @@
 <script setup>
 import { ref } from 'vue';
 import NavBar from '@/components/NavBar.vue';
-import AdminQuestions from '@/components/AdminQuestions.vue';
-import AdminOffers from '@/components/AdminOffers.vue';
-import NewSection from '@/components/NewSection.vue';
-import Answers from '@/components/Answers.vue';
-import UpdateLogo from '@/components/UpdateLogo.vue';
+import adminQuestions from '@/components/adminQuestions.vue';
+import adminOffers from '@/components/adminOffers.vue';
+import newSection from '@/components/newSection.vue';
+import answers from '@/components/answers.vue';
+import updateLogo from '@/components/updateLogo.vue';
 
 // قائمة الأقسام
 const sections = [
-  { name: 'الأسئلة الإدارية', component: AdminQuestions },
-  { name: 'العروض الإدارية', component: AdminOffers },
-  { name: 'الأقسام الجديدة', component: NewSection },
-  { name: 'تعديل اللوجو', component: UpdateLogo },
-  { name: 'الإجابات', component: Answers }
+  { name: 'الأسئلة الإدارية', component: adminQuestions },
+  { name: 'العروض الإدارية', component: adminOffers },
+  { name: 'الأقسام الجديدة', component: newSection },
+  { name: 'تعديل اللوجو', component: updateLogo },
+  { name: 'الإجابات', component: answers }
 ];
 
 // متغير لتتبع القسم النشط
