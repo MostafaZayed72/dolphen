@@ -9,14 +9,7 @@
       <li><a href="#skills" @click.prevent="scrollToSection('skills')">العروض</a></li>
       <li><a href="#services" @click.prevent="scrollToSection('services')">التواصل معنا</a></li>
       <li><a href="#portfolio" @click.prevent="scrollToSectiony('portfolio')">الوظائف</a></li>
-                <li class="flex gap-2 items-center">
-                    <h1>الوضع</h1><select v-model="$colorMode.preference" class="px-2 py-1 text-center"
-                        style="border: 1px solid;">
-                        <option value="light">نهاري</option>
-                        <option value="dark">ليلي</option>
-                        <option value="sepia">بيج</option>
-                    </select>
-                </li>
+               
             </ul>
         </div>
 
@@ -27,18 +20,7 @@
             
             <DropMenu />
 
-          <div class="w-100 lg:hidden flex justify-center  items-center gap-2">
-
-            <h1>الوضع </h1>
-            
-            <select v-model="$colorMode.preference" class="px-2 py-1 text-center"
-                        style="border: 1px solid;">
-                        <option value="light">نهاري</option>
-                        <option value="dark">ليلي</option>
-                        <option value="sepia">بيج</option>
-            </select>
-
-          </div>
+         
           <img src="/assets/imgs/logo.jpeg" class="w-12 rounded-xl md:hidden cursor-pointer" alt="" @click="toHome">
 
         </div>
@@ -50,7 +32,6 @@
 </template>
 
 <script setup>
-const colorMode = useColorMode()
 const scrollToSectiony = (sectionId) => {
   const section = document.getElementById(sectionId);
   if (section) {

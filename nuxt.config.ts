@@ -6,7 +6,6 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     'vuetify-nuxt-module',
-    '@nuxtjs/color-mode',
     "@nuxt/icon"
   ],
 
