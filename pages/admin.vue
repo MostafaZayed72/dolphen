@@ -28,6 +28,9 @@ import adminOffers from '@/components/adminOffers.vue';
 import newSection from '@/components/newSection.vue';
 import answers from '@/components/answers.vue';
 import updateLogo from '@/components/updateLogo.vue';
+import socialIcons from '~/components/socialIcons.vue';
+import phone from '~/components/phone.vue';
+
 
 // قائمة الأقسام
 const sections = [
@@ -35,8 +38,11 @@ const sections = [
   { name: 'العروض الإدارية', component: adminOffers },
   { name: 'الأقسام الجديدة', component: newSection },
   { name: 'تعديل اللوجو', component: updateLogo },
+  { name: 'أيقونات التواصل الإجتماعي', component: socialIcons },
+  { name: ' رقم التواصل', component: phone },
   { name: 'الإجابات', component: answers }
 ];
+
 
 // متغير لتتبع القسم النشط
 const currentComponent = ref(sections[0].component);
@@ -45,6 +51,17 @@ const currentComponent = ref(sections[0].component);
 const selectSection = (index) => {
   currentComponent.value = sections[index].component;
 };
+
+
+onMounted(async () => {
+  const accessToken = localStorage.getItem('accessToken');
+  if (!accessToken) {
+    router.push('/signIn'); 
+    return; 
+  }
+})
+
+
 </script>
 
 <style scoped>
