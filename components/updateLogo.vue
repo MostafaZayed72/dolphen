@@ -1,9 +1,9 @@
 <template>
     <div class="container mx-auto p-4">
-      <h1 class="text-2xl font-bold mb-4">تعديل الشعار</h1>
+      <h1 class="text-2xl font-bold mb-4">تعديل اللوجو</h1>
       <form @submit.prevent="updateLogo">
         <div class="mb-4">
-          <label class="block text-gray-700 text-sm font-bold mb-2" for="logo">رفع شعار جديد</label>
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="logo">رفع لوجو جديد</label>
           <input @change="onFileChange" type="file" id="logo" accept="image/*" required>
         </div>
         <div class="flex items-center justify-between">

@@ -35,20 +35,22 @@
         </tr>
       </tbody>
     </table>
+    <button @click="exportToExcel" class="bg-blue-500 text-white px-4 py-2 rounded mt-4">تصدير إلى Excel</button>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue';
 import axios from 'axios';
+import * as XLSX from 'xlsx';
 
 const usersData = ref([]);
-const userType = ref('student'); // افتراضياً سيتم عرض بيانات student
+const userType = ref('student');
 const token = ref();
 
 onMounted(() => {
   token.value = localStorage.getItem('accessToken');
-  fetchUserData(); // استدعاء أولي لجلب البيانات عند التحميل الأول
+  fetchUserData();
 });
 
 const fetchUserData = async () => {
@@ -64,7 +66,6 @@ const fetchUserData = async () => {
   }
 };
 
-// مراقبة تغيير قيمة userType واستدعاء fetchUserData عند التغيير
 watch(userType, () => {
   fetchUserData();
 });
@@ -82,11 +83,46 @@ const deleteAnswer = async (userId) => {
         }
       });
       console.log('تم حذف الإجابات بنجاح');
-      fetchUserData(); // إعادة جلب البيانات لتحديث القائمة بعد الحذف
+      fetchUserData();
     } catch (error) {
       console.error('حدث خطأ في حذف الإجابات:', error.message);
     }
   }
+};
+
+const exportToExcel = () => {
+  // تجهيز البيانات للتصدير
+  const data = filteredUsers.value.map(user => ({
+    'رقم المستخدم': user.id,
+    'نوع المستخدم': user.type,
+    'الأسئلة والأجوبة': user.answers.map(answer => `${answer.question.text}: ${answer.answerText}`).join('\n'),
+  }));
+
+  // تحويل البيانات إلى ورقة عمل
+  const worksheet = XLSX.utils.json_to_sheet(data);
+
+  // تعيين اتجاه الورقة من اليمين إلى اليسار
+  worksheet['!dir'] = 'rtl';
+
+  // ضبط عرض الأعمدة بناءً على أكبر محتوى في كل عمود
+  const columnWidths = data.reduce((widths, row) => {
+    Object.keys(row).forEach((key, index) => {
+      const columnLength = row[key] ? row[key].toString().length : 10;
+      if (!widths[index] || columnLength > widths[index]) {
+        widths[index] = columnLength;
+      }
+    });
+    return widths;
+  }, []);
+
+  worksheet['!cols'] = columnWidths.map(width => ({ width: width + 5 })); // إضافة 5 لضمان توسع كافي
+
+  // إنشاء ملف Excel جديد
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'الإجابات');
+
+  // كتابة الملف وتنزيله
+  XLSX.writeFile(workbook, 'الإجابات.xlsx');
 };
 </script>
 

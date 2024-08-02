@@ -15,7 +15,8 @@
     "nuxt": "^3.12.3",
     "nuxt-security": "^2.0.0-rc.9",
     "vue": "latest",
-    "vuetify-nuxt-module": "^0.14.1"
+    "vuetify-nuxt-module": "^0.14.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.12.0"

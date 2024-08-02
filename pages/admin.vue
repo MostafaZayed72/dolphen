@@ -28,8 +28,9 @@ import adminOffers from '@/components/adminOffers.vue';
 import newSection from '@/components/newSection.vue';
 import answers from '@/components/answers.vue';
 import updateLogo from '@/components/updateLogo.vue';
-import socialIcons from '~/components/socialIcons.vue';
+// import socialIcons from '~/components/socialIcons.vue';
 import phone from '~/components/phone.vue';
+import navTitle from '~/components/navTitle.vue';
 
 
 // قائمة الأقسام
@@ -38,8 +39,9 @@ const sections = [
   { name: 'العروض الإدارية', component: adminOffers },
   { name: 'الأقسام الجديدة', component: newSection },
   { name: 'تعديل اللوجو', component: updateLogo },
-  { name: 'أيقونات التواصل الإجتماعي', component: socialIcons },
+  // { name: 'أيقونات التواصل الإجتماعي', component: socialIcons },
   { name: ' رقم التواصل', component: phone },
+  { name: ' اسم المنصة', component: navTitle },
   { name: 'الإجابات', component: answers }
 ];
 
@@ -56,7 +58,7 @@ const selectSection = (index) => {
 onMounted(async () => {
   const accessToken = localStorage.getItem('accessToken');
   if (!accessToken) {
-    router.push('/signIn'); 
+    navigateTo('/signIn'); 
     return; 
   }
 })

@@ -1,17 +1,17 @@
 <template>
-    <div class="contact-number-manager">
-      <h2 class="text-2xl font-bold mb-4">تغيير رقم التواصل</h2>
+    <div class="navbar-data-manager">
+      <h2 class="text-2xl font-bold mb-4">تغيير اسم المنصة</h2>
       <div class="mb-4">
-        <label for="phoneNumber" class="block font-semibold mb-1">رقم التواصل:</label>
+        <label for="navbarData" class="block font-semibold mb-1">اسم المنصة:</label>
         <input
-          id="phoneNumber"
-          v-model="phoneNumber"
+          id="navbarData"
+          v-model="navbarData"
           type="text"
           class="w-full p-2 border border-gray-300 rounded-md"
         />
       </div>
       <button
-        @click="updatePhoneNumber"
+        @click="updateNavbarData"
         class="bg-blue-600 text-white py-2 px-4 rounded-md"
       >
         Save Changes
@@ -24,7 +24,7 @@
   import axios from 'axios';
   import { useRouter } from 'vue-router';
   
-  const phoneNumber = ref('');
+  const navbarData = ref('');
   const token = ref('');
   const router = useRouter();
   
@@ -42,17 +42,17 @@
           Authorization: `Bearer ${token.value}`,
         },
       });
-      phoneNumber.value = response.data.phoneNumber;
+      navbarData.value = response.data.navbarData;
     } catch (error) {
-      console.error('Error fetching contact number:', error);
+      console.error('Error fetching navbar data:', error);
     }
   });
   
-  const updatePhoneNumber = async () => {
+  const updateNavbarData = async () => {
     try {
       const response = await axios.patch(
         'https://backend.babybuildingksa.com/v1/page',
-        { phoneNumber: phoneNumber.value },
+        { navbarData: navbarData.value },
         {
           headers: {
             Authorization: `Bearer ${token.value}`,
@@ -61,20 +61,21 @@
       );
   
       if (response.status === 200) {
-        alert('Phone number updated successfully!');
+        alert('تم تحيث الإسم بنجاح');
+window.location.reload()
       } else {
-        alert('Failed to update phone number.');
+        alert('Failed to update navbar data.');
       }
     } catch (error) {
-      console.error('Error updating phone number:', error);
-      alert('An error occurred while updating the phone number.');
+      console.error('Error updating navbar data:', error);
+      alert('An error occurred while updating the navbar data.');
     }
   };
   </script>
   
   <style scoped>
-  .contact-number-manager {
-    max-width: 400px;
+  .navbar-data-manager {
+    max-width: 600px;
     margin: auto;
   }
   </style>

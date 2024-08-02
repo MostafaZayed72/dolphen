@@ -26,20 +26,13 @@ const loading = ref(true);
 onMounted(async () => {
   const token = localStorage.getItem('accessToken');
 
-  if (!token) {
-    alert("يرجى تسجيل الدخول أولاً");
-    loading.value = false;
-    return;
-  }
-
+  
   try {
     const response = await fetch('https://backend.babybuildingksa.com/v1/page', {
     
     });
 
-    if (!response.ok) {
-      throw new Error('حدث خطأ أثناء جلب البيانات');
-    }
+    
 
     const data = await response.json();
     sections.value = data.sections;

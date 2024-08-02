@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex justify-between items-center shadow-md py-3 sticky top-0 z-10 px-20 bg-slate-300">
+  <nav class="flex justify-between items-center shadow-md py-3 sticky top-0 z-10 px-4 md:px-20 bg-slate-300">
     <!-- LINKS IN LARGE SCREEN -->
     <div class="mr-10 hidden lg:block">
       <ul class="flex gap-20 items-center font-semibold">
@@ -14,7 +14,7 @@
       <h1 class="font-bold hidden lg:block">{{ navbarData }}</h1>
     </div>
     <!-- LINKS IN SMALL SCREEN -->
-    <div class="w-100 lg:hidden flex justify-center items-center gap-10">
+    <div class="w-100 lg:hidden flex justify-between items-center ">
       <DropMenu />
       <div class="flex flex-col items-center">
         <img :src="logoUrl" class="w-12 rounded-xl md:hidden cursor-pointer" alt="Logo" @click="toHome" />

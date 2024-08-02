@@ -1,6 +1,6 @@
 <template>
     <div class="image-manager">
-      <h2 class="text-2xl font-bold mb-4">Manage Images</h2>
+      <h2 class="text-2xl font-bold mb-4">التحكم في الأيقونات أسفل الصفحة</h2>
       <div class="image-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
         <div v-for="image in logosImages" :key="image.id" class="relative group">
           <img

@@ -59,7 +59,6 @@ const submitAnswers = async () => {
     }));
 
     const body = {
-      userName: 'name', // استبدل بالاسم المستخدم الفعلي
       applierType: 'student',
       answers: answers
     };
