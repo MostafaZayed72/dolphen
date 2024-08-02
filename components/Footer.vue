@@ -7,9 +7,8 @@
        <nuxt-link to="https://www.tiktok.com/@babybuildingksa" target="_blank"><Icon name="logos:tiktok-icon" class="text-2xl cursor-pointer"/></nuxt-link>
        <nuxt-link to="https://www.instagram.com/babybuildingksa/" target="_blank"><Icon name="skill-icons:instagram" class="text-2xl cursor-pointer"/></nuxt-link>
        <nuxt-link to="https://youtube.com/@babybuildingksa?si=pWbQKkJzyNicUNgQ" target="_blank"><Icon name="logos:youtube-icon" class="text-2xl cursor-pointer"/></nuxt-link>
-      
       </div>
-      <p class=" text-lg font-semibold cursor-pointer">{{ phoneNumber }}</p>
+      <a :href="`tel:${phoneNumber}`" class="text-lg font-semibold cursor-pointer">{{ phoneNumber }}</a>
     </div>
     <img
       :src="logoUrl"
