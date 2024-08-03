@@ -10,14 +10,14 @@
       </ul>
     </div>
     <div class="flex items-center flex-col">
-      <img :src="logoUrl" class="w-12 rounded-xl cursor-pointer hidden lg:block" alt="Logo" @click="toHome" />
+      <img v-if="logoUrl" :src="logoUrl" class="w-12 rounded-xl cursor-pointer hidden lg:block" alt="Logo" @click="toHome" />
       <h1 class="font-bold hidden lg:block">{{ navbarData }}</h1>
     </div>
     <!-- LINKS IN SMALL SCREEN -->
     <div class="w-100 lg:hidden flex justify-between items-center ">
       <DropMenu />
       <div class="flex flex-col items-center">
-        <img :src="logoUrl" class="w-12 rounded-xl md:hidden cursor-pointer" alt="Logo" @click="toHome" />
+        <img v-if="logoUrl" :src="logoUrl" class="w-12 rounded-xl md:hidden cursor-pointer" alt="Logo" @click="toHome" />
         <h1 class="font-bold">{{ navbarData }}</h1>
       </div>
     </div>

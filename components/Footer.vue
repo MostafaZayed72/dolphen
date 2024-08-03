@@ -11,6 +11,7 @@
       <a :href="`tel:${phoneNumber}`" class="text-lg font-semibold cursor-pointer">{{ phoneNumber }}</a>
     </div>
     <img
+    v-if="logoUrl"
       :src="logoUrl"
       class="w-12 rounded-xl cursor-pointer"
       alt="Logo"
